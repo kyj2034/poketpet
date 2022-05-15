@@ -35,7 +35,7 @@ public class HomeActivity<ResultProfileBinding> extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        final String TAG = "MainActivity";
+        final String TAG = "HomeActivity";
 
         homeFragment = new HomeFragment();
         boardFragment = new BoardFragment();

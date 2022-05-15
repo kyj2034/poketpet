@@ -38,7 +38,7 @@ public class BoardAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View converview, ViewGroup viewGroup) {
-
+        //BoardItem boardItem;
         View view = layoutInflater.inflate(R.layout.activity_list_item, null);
 
         TextView title = view.findViewById(R.id.txt_title);

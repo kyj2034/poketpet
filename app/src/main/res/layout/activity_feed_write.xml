@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".WriteActivity"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@color/white">
+    <!--상단의 툴바 입니다. -->
+    <androidx.appcompat.widget.Toolbar
+        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/toolbar"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <TextView
+            android:id="@+id/nameboard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="#9777D8"
+            android:textStyle="bold"
+            android:textSize="35dp"
+            android:text="피드 작성"/>
+
+    </androidx.appcompat.widget.Toolbar>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:text="제목"
+            android:textSize="18dp"/>
+
+        <EditText
+            android:id="@+id/title"
+            android:padding="16dp"
+            android:background="#eeeeee"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="제목을 입력하세요."
+            />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:text="내용"
+            android:textSize="18dp"/>
+
+        <TextView
+            android:id="@+id/getImgBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:drawableRightCompat="@drawable/ic_baseline_camera_alt_24"
+            />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imgView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="#eeeeee" />
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:padding="10dp">
+
+        <android.widget.Button
+            android:id="@+id/c_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="등록"
+            android:background="@drawable/blue"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:textColor="@color/white"/>
+
+        <android.widget.Button
+            android:id="@+id/d_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="삭제"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/blue"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:textColor="@color/white"/>
+
+        <android.widget.Button
+            android:id="@+id/u_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="수정"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:background="@drawable/blue"/>
+
+    </LinearLayout>
+</LinearLayout>

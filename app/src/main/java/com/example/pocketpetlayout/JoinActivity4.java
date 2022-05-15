@@ -2,7 +2,10 @@ package com.example.pocketpetlayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,6 +18,14 @@ public class JoinActivity4 extends AppCompatActivity {
 
     String petnickSt;
     String petgender;
+    int petbirthDay;
+    SQLiteDatabase database;
+    String emailSt;
+    String passwordSt2;
+    String nickSt;
+    String gender;
+    int birthDay;
+
     public static final String TAG = " joinActivity4";
 
     @Override
@@ -23,23 +34,20 @@ public class JoinActivity4 extends AppCompatActivity {
         setContentView(R.layout.activity_join4);
         Button nextbtn3 = (Button) findViewById(R.id.nextbtn3);
 
+        MyDbHelper myDbHelper = new MyDbHelper(getApplicationContext());
+        EditText petnickname = (EditText) findViewById(R.id.petnickname); // 닉네임
+        Spinner spinner_year = (Spinner)findViewById(R.id.spinner_year); // 월 선택
+        Spinner spinner_month = (Spinner)findViewById(R.id.spinner_month); // 년 선택
+        RadioGroup radioGroup = (RadioGroup)findViewById(R.id.radioGroup); // 성별 선택
 
         nextbtn3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
-
-                EditText petnickname = (EditText) findViewById(R.id.petnickname); // 닉네임
-                Spinner spinner_year = (Spinner)findViewById(R.id.spinner_year); // 월 선택
-                Spinner spinner_month = (Spinner)findViewById(R.id.spinner_month); // 년 선택
-                RadioGroup radioGroup = (RadioGroup)findViewById(R.id.radioGroup); // 성별 선택
-
-
 
                 String spinnerYear = spinner_year.getSelectedItem().toString(); // 선택한 년도 spinnerYear에 넣음
                 String spinnerMonth = spinner_month.getSelectedItem().toString(); // 선택한 월 spinnerMonth에 넣음
-                String BirthDay = spinnerYear + spinnerMonth;
+
+                petbirthDay = Integer.parseInt(spinnerYear + spinnerMonth); //생년월일 넣음
                 petnickSt= petnickname.getText().toString(); // 닉네임 넣음
 
                 int checkedRadioButtonId = radioGroup.getCheckedRadioButtonId(); // 선택한 성별 넣음
@@ -49,21 +57,42 @@ public class JoinActivity4 extends AppCompatActivity {
 
                 else{
                        if (checkedRadioButtonId == R.id.petwoman) {
-                                petgender= "암컷";
+                                petgender= "woman";
                        }else if(checkedRadioButtonId == R.id.petman){
-                                petgender= "수컷";
+                                petgender= "man";
                        }
                 }
 
-                String emailSt = getIntent().getStringExtra("MEMBER_ID");  //2에서 받고
-                String passwordSt2 =getIntent().getStringExtra("PASSWORD");
+                emailSt = getIntent().getStringExtra("MEMBER_ID");  //2에서 받고
+                passwordSt2 =getIntent().getStringExtra("PASSWORD");
 
-                String nickSt = getIntent().getStringExtra("NICKNAME"); //3에서 받고
-                String birthDay = getIntent().getStringExtra("BIRTHDAY");
-                String gender = getIntent().getStringExtra("SEX");
+                nickSt = getIntent().getStringExtra("NICKNAME"); //3에서 받고
+                birthDay = getIntent().getIntExtra("BIRTHDAY",0);
+                gender = getIntent().getStringExtra("SEX");
+                //Log.i(TAG, "Member_id: " + emailSt);
+                ContentValues values = new ContentValues();
+                values.put(Member.MEMBER_ID, emailSt.trim());
+                values.put(Member.PASSWORD, passwordSt2.trim());
+                values.put(Member.NICKNAME, nickSt.trim());
+                values.put(Member.SEX, gender.trim());
+                values.put(Member.BIRTHDAY, birthDay);
 
-                Log.i(TAG, "Member_id: " + emailSt);
+                ContentValues values2 = new ContentValues();
+                values2.put(Pet.PET_NAME, petnickSt);
+                values2.put(Pet.BIRTHDAY, petbirthDay);
+                values2.put(Pet.SEX, petgender);
 
+                SQLiteDatabase db = myDbHelper.getWritableDatabase();
+                Log.i(TAG, "db 생성 중"+ db);
+
+                long newRowId = db.insert(Member.TABLE_NAME, null,values);
+                Log.i(TAG, "new row ID: " +newRowId);
+
+                long newRowId2 = db.insert(Pet.TABLE_NAME, null,values2);
+                Log.i(TAG, "new row ID: " +newRowId2);
+
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
 
                 }
         });

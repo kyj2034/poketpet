@@ -2,43 +2,43 @@
 <resources>
 
     <string-array name="date_year">
-        <item>1990년</item>
-        <item>1991년</item>
-        <item>1992년</item>
-        <item>1993년</item>
-        <item>1994년</item>
-        <item>1995년</item>
-        <item>1996년</item>
-        <item>1997년</item>
-        <item>1998년</item>
-        <item>1999년</item>
-        <item>2000년</item>
-        <item>2001년</item>
-        <item>2002년</item>
-        <item>2003년</item>
-        <item>2004년</item>
-        <item>2005년</item>
-        <item>2006년</item>
-        <item>2007년</item>
-        <item>2008년</item>
-        <item>2009년</item>
-        <item>2010년</item>
+        <item>1990</item>
+        <item>1991</item>
+        <item>1992</item>
+        <item>1993</item>
+        <item>1994</item>
+        <item>1995</item>
+        <item>1996</item>
+        <item>1997</item>
+        <item>1998</item>
+        <item>1999</item>
+        <item>2000</item>
+        <item>2001</item>
+        <item>2002</item>
+        <item>2003</item>
+        <item>2004</item>
+        <item>2005</item>
+        <item>2006</item>
+        <item>2007</item>
+        <item>2008</item>
+        <item>2009</item>
+        <item>2010</item>
 
     </string-array>
 
     <string-array name="date_month">
-        <item>1월</item>
-        <item>2월</item>
-        <item>3월</item>
-        <item>4월</item>
-        <item>5월</item>
-        <item>6월</item>
-        <item>7월</item>
-        <item>8월</item>
-        <item>9월</item>
-        <item>10월</item>
-        <item>11월</item>
-        <item>12월</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
     </string-array>
 
     <string-array name="filter"

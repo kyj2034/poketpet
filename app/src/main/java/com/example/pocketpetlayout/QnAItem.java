@@ -1,6 +1,8 @@
 package com.example.pocketpetlayout;
 
 public class QnAItem {
+
+
     private String mImgName;
     private String mMainText;
 

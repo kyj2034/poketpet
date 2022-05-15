@@ -1,5 +1,7 @@
 package com.example.pocketpetlayout;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Intent;
@@ -7,50 +9,30 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.SimpleDateFormat;
 import java.sql.Date;
 
-public class WriteActivity extends AppCompatActivity {
-    public static final String TAG = "WriteActivity";
-
-    //카테고리
-    Spinner categorySpin;
-    ArrayAdapter arrayAdapt;
-    ArrayAdapter<CharSequence> categoryAdapt;
+public class FeedWriteActivity extends AppCompatActivity {
+    public static final String TAG = "FeedWriteActivity";
 
     // 등록, 수정, 삭제 버튼
     Button c_Btn;
     Button u_Btn;
     Button d_Btn;
     TextView getImgBtn;
-
-    //현재 시간 가져오기
-    long now = System.currentTimeMillis();
-    Date date;
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
-    //사진 등록
     ImageView imgView;
 
     //
@@ -66,7 +48,8 @@ public class WriteActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_write);
+        setContentView(R.layout.activity_feed_write);
+
 
         //등록 수정 삭제 버튼
         c_Btn = findViewById(R.id.c_button);
@@ -76,53 +59,17 @@ public class WriteActivity extends AppCompatActivity {
         //
         MyDbHelper dbHelper = new MyDbHelper(getApplicationContext());
         title = findViewById(R.id.title);
-        content = findViewById(R.id.content);
-
-        //사진 등록
         getImgBtn = findViewById(R.id.getImgBtn);
         imgView = findViewById(R.id.imgView);
-
-        //카테고리 설정
-        categorySpin = findViewById(R.id.category_Spin);
-        arrayAdapt = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item);
-        categoryAdapt = ArrayAdapter.createFromResource(getBaseContext(), R.array.category,
-                android.R.layout.simple_spinner_item);
-        categoryAdapt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        categorySpin.setAdapter(categoryAdapt);
-
-        categorySpin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-                switch (position){
-                    case 0:{//입양 게시판 카테고리 선택 시
-                        category = "Free";
-                       break;
-                    }
-                    case 1:{ //질문 게시판 카테고리 선택 시
-                        category = "QnA";
-                        break;
-                    }
-                    case 2:{ //입양 게시판 카테고리 선택 시
-                        category = "Adopt";
-                        break;
-                    }
-                }
-                Log.i(TAG, "선택된 카테고리 :" + category);
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                category = "Free";  //기본 카테고리를 자유 게시판으로
-            }
-        });
 
         //사진 등록
         getImgBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    Intent intent = new Intent();
-                    intent.setType("image/*");
-                    intent.setAction(Intent.ACTION_GET_CONTENT);
-                    startActivityForResult(intent, 101);
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(intent, 101);
             }
         });
 
@@ -132,34 +79,21 @@ public class WriteActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //제목
                 titleStr = title.getText().toString();
-                //내용
-                contentStr = content.getText().toString();
-                //현재 시간
-                now = System.currentTimeMillis();
-                date = new Date(now);
-                reg_date = sdf.format(date);
 
-                Log.i(TAG, "제목 :" + titleStr + " , 내용 : " + contentStr + " , 카테고리 : " + category
-                + " , 이미지 이름 : " + imgName + ", 등록 시간 : " + reg_date);
+                Log.i(TAG, "제목 :" + titleStr
+                        + " , 이미지 이름 : " + imgName);
 
-                ContentValues board = new ContentValues();
-                board.put(Board.COLUMN_TITLE, titleStr);
-                board.put(Board.COLUMN_WRITER, "user");
-                board.put(Board.COLUMN_IMAGE, imgName);
-                board.put(Board.COLUMN_MAINTEXT, contentStr);
-                board.put(Board.COLUMN_COMMENT_CNT, 0);
-                board.put(Board.COLUMN_LIKE_CNT, 0);
-                board.put(Board.COLUMN_CATEGORY, category);
-                board.put(Board.COLUMN_REGISTER_DATE, reg_date);
-
+                ContentValues feed = new ContentValues();
+                feed.put(Feed.FEED_TITLE, titleStr);
+                feed.put(Feed.WRITER, "user");
+                feed.put(Feed.IMAGE, imgName);
 
                 SQLiteDatabase db = dbHelper.getWritableDatabase();
-                long newRowId = db.insert(Board.TABLE_NAME, null, board);
+                long newRowId = db.insert(Feed.TABLE_NAME, null, feed);
                 Log.i(TAG, "new row id: " + newRowId);
 
                 Toast.makeText(getApplicationContext(), "글 등록 성공", Toast.LENGTH_LONG).show();
                 finish();
-
 
             }
         });
@@ -170,7 +104,7 @@ public class WriteActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 title.setText("");
-                content.setText("");
+
                 try{
                     File file = getCacheDir();
                     File[] flist = file.listFiles();
@@ -189,7 +123,6 @@ public class WriteActivity extends AppCompatActivity {
         });
 
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){

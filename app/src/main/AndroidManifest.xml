@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PocketPetLayout">
         <activity
+            android:name=".FeedWriteActivity"
+            android:exported="false" />
+        <activity
             android:name=".BestBoardActivity"
             android:exported="true" />
         <activity
@@ -25,7 +28,7 @@
             android:name=".FreeBoardActivity"
             android:exported="true" />
         <activity
-            android:name=".HomeActivity"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -33,9 +36,26 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".WriteActivity"/>
-        <activity android:name=".BoardContentsActivity"/>
-        <activity android:name=".MainActivity"/>
+        <activity
+            android:name=".WriteActivity"
+            android:exported="true" />
+        <activity
+            android:name=".BoardContentsActivity"
+            android:exported="true" />
+        <activity
+            android:name=".HomeActivity"
+            android:exported="true" />
+        <activity
+            android:name=".JoinActivity2"
+            android:exported="true" />
+        <activity
+            android:name=".JoinActivity3"
+            android:exported="true" />
+        <activity
+            android:name=".JoinActivity4"
+            android:exported="true" />
+
     </application>
+
 
 </manifest>

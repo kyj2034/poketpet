@@ -33,20 +33,24 @@ public class ListItemsAdapter extends BaseAdapter {
         return position;
     }
 
+    //화면에 보여주는 역할을 함
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
         if(convertView == null){
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.activity_list_item, parent, false);
+        }else{
+
+            TextView txt_Title = (TextView) convertView.findViewById(R.id.txt_title);
+            TextView txt_Heart = (TextView) convertView.findViewById(R.id.txt_heart);
+            TextView txt_Comm =  (TextView) convertView.findViewById(R.id.txt_comm);
+
+            txt_Title.setText("" + position);
+            txt_Heart.setText(mBoardItmes.get(position));
+            txt_Comm.setText(mBoardItmes.get(position));
         }
 
-        TextView txt_Title = (TextView) convertView.findViewById(R.id.txt_title);
-        TextView txt_Heart = (TextView) convertView.findViewById(R.id.txt_heart);
-        TextView txt_Comm =  (TextView) convertView.findViewById(R.id.txt_comm);
-
-        txt_Title.setText("" + position);
-        txt_Heart.setText(mBoardItmes.get(position));
-        txt_Comm.setText(mBoardItmes.get(position));
 
         return convertView;
     }

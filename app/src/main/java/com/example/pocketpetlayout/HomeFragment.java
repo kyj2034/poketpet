@@ -236,9 +236,7 @@ public class HomeFragment extends Fragment {
 
     public void addFeedItem(String imgName){
         FeedItem feedItem = new FeedItem();
-
         feedItem.setImgName(imgName);
-
         mFeedList.add(feedItem);
     }
     //-----------------

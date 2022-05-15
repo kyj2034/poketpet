@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BookmarkActivity"
+    tools:context=".BookmarkFragment"
     android:orientation="vertical"
     android:layout_gravity="center"
     android:background="@color/white"
@@ -27,7 +27,7 @@
             android:textColor="#9777D8"
             android:textStyle="bold"
             android:textSize="35dp"
-            android:text="bookmark"
+            android:text="Webcam"
             android:drawableStart="@drawable/ic_baseline_bookmark_24"/>
 
     </androidx.appcompat.widget.Toolbar>
@@ -41,16 +41,20 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="내가 좋아요 누른 글들   "
-            android:drawableRight="@drawable/ic_baseline_thumb_up_24">
+            android:text="반려동물의 실시간 모습을 확인해봐!   "
+            >
 
         </TextView>
     </LinearLayout>
+    <Button
+        android:id="@+id/webcam"
+        android:text="확인하기"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        >
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+    </Button>
 
 
 </LinearLayout>
