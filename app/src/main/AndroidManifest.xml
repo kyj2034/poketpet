@@ -13,6 +13,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PocketPetLayout">
         <activity
+            android:name=".PetProfileFix"
+            android:exported="false" />
+        <activity
+            android:name=".PetProfile"
+            android:exported="false" />
+        <activity
+            android:name=".PetProfileCheck"
+            android:exported="false" />
+        <activity
+            android:name=".ProfileFix"
+            android:exported="false" />
+        <activity
             android:name=".FeedWriteActivity"
             android:exported="false" />
         <activity
@@ -32,13 +44,15 @@
             android:exported="true" />
         <activity
             android:name=".HomeActivity"
-            android:exported="true">
-        </activity>
-        <activity android:name=".WriteActivity"
             android:exported="true" />
-        <activity android:name=".BoardContentsActivity"
-            android:exported="true"/>
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".WriteActivity"
+            android:exported="true" />
+        <activity
+            android:name=".BoardContentsActivity"
+            android:exported="true" />
+        <activity
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -46,16 +60,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".JoinActivity2"
-            android:exported="true">
-        </activity>
-        <activity android:name=".JoinActivity3"
-            android:exported="true">
-        </activity>
-        <activity android:name=".JoinActivity4"
-            android:exported="true">
-
-        </activity>
+        <activity
+            android:name=".JoinActivity2"
+            android:exported="true" />
+        <activity
+            android:name=".JoinActivity3"
+            android:exported="true" />
+        <activity
+            android:name=".JoinActivity4"
+            android:exported="true" />
     </application>
 
 </manifest>
