@@ -9,13 +9,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.Toast;
@@ -23,7 +27,9 @@ import android.widget.Toast;
 import java.io.InputStream;
 
 public class PetProfileFix extends AppCompatActivity {
-
+    EditText etext1;
+    EditText etext2;
+    EditText etext3;
     Bitmap bitmap;
     ImageView imageView;
     private static final int REQUEST_CODE = 0;
@@ -55,6 +61,8 @@ public class PetProfileFix extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pet_profile_fix);
+
+        DBInfo();
 
         // 상단 툴바
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -130,5 +138,28 @@ public class PetProfileFix extends AppCompatActivity {
                 Toast.makeText(this, "사진 선택 취소", Toast.LENGTH_LONG).show();
             }
         }
+    }
+
+    public void DBInfo() {
+        MyDbHelper dbHelper = new MyDbHelper(getApplicationContext());
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+        Cursor c = db.rawQuery("SELECT * FROM " + Pet.TABLE_NAME, null);
+
+        if (c.moveToFirst()) {
+
+            String pet_name = c.getString(0);
+            String birthday = c.getString(1);
+            String sex = c.getString(2);
+            Log.i(TAG, "name :" + pet_name + "birthday :" + birthday + "sex :" + sex);
+            etext1 = findViewById(R.id.PetprofileFixEditText1);
+            etext2 = findViewById(R.id.PetprofileFixEditText2);
+            etext3 = findViewById(R.id.PetprofileFixEditText3);
+            etext1.setText(pet_name);
+            etext2.setText(sex);
+            etext3.setText(birthday);
+        }
+        c.close();
+        db.close();
     }
 }

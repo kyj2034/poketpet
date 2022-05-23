@@ -79,7 +79,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/profileFixText1"
+        android:id="@+id/PetprofileFixText1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="이름"
@@ -90,7 +90,7 @@
         />
 
     <EditText
-        android:id="@+id/profileFixEditText1"
+        android:id="@+id/PetprofileFixEditText1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
@@ -98,22 +98,22 @@
         android:inputType="textPersonName"
         android:text="점박이"
         app:layout_constraintStart_toStartOf="@id/guideline1"
-        app:layout_constraintTop_toBottomOf="@id/profileFixText1" />
+        app:layout_constraintTop_toBottomOf="@id/PetprofileFixText1" />
 
     <TextView
-        android:id="@+id/profileFixText2"
+        android:id="@+id/PetprofileFixText2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="종"
+        android:text="성별"
         tools:layout_editor_absoluteX="27dp"
         tools:layout_editor_absoluteY="275dp"
         app:layout_constraintStart_toStartOf="@id/guideline1"
-        app:layout_constraintTop_toBottomOf="@id/profileFixEditText1"
+        app:layout_constraintTop_toBottomOf="@id/PetprofileFixEditText1"
         />
 
     <EditText
-        android:id="@+id/profileFixEditText2"
+        android:id="@+id/PetprofileFixEditText2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
@@ -121,10 +121,10 @@
         android:inputType="textPersonName"
         android:text="햄스터"
         app:layout_constraintStart_toStartOf="@id/guideline1"
-        app:layout_constraintTop_toBottomOf="@id/profileFixText2" />
+        app:layout_constraintTop_toBottomOf="@id/PetprofileFixText2" />
 
     <TextView
-        android:id="@+id/profileFixText3"
+        android:id="@+id/PetprofileFixText3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -132,11 +132,11 @@
         tools:layout_editor_absoluteX="27dp"
         tools:layout_editor_absoluteY="275dp"
         app:layout_constraintStart_toStartOf="@id/guideline1"
-        app:layout_constraintTop_toBottomOf="@id/profileFixEditText2"
+        app:layout_constraintTop_toBottomOf="@id/PetprofileFixEditText2"
         />
 
     <EditText
-        android:id="@+id/profileFixEditText3"
+        android:id="@+id/PetprofileFixEditText3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
@@ -144,6 +144,6 @@
         android:inputType="textPersonName"
         android:text="2022.02.05"
         app:layout_constraintStart_toStartOf="@id/guideline1"
-        app:layout_constraintTop_toBottomOf="@id/profileFixText3" />
+        app:layout_constraintTop_toBottomOf="@id/PetprofileFixText3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

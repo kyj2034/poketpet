@@ -7,23 +7,29 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.InputStream;
 
 public class ProfileFix extends AppCompatActivity {
-
+    EditText etext1;
+    EditText etext2;
+    EditText etext3;
     Bitmap bitmap;
     ImageView imageView;
     private static final int REQUEST_CODE = 0;
@@ -56,6 +62,7 @@ public class ProfileFix extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_fix);
 
+        DBInfo();
         // 상단 툴바
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
@@ -130,5 +137,28 @@ public class ProfileFix extends AppCompatActivity {
                 Toast.makeText(this, "사진 선택 취소", Toast.LENGTH_LONG).show();
             }
         }
+    }
+
+    public void DBInfo() {
+        MyDbHelper dbHelper = new MyDbHelper(getApplicationContext());
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+        Cursor c = db.rawQuery("SELECT * FROM " + Member.TABLE_NAME, null);
+
+        if (c.moveToFirst()) {
+            String member_name = c.getString(2);
+            String sex = c.getString(3);
+            String birthday = c.getString(4);
+
+            Log.i(TAG, "name :" + member_name);
+            etext1 = findViewById(R.id.profileFixEditText1);
+            etext2 = findViewById(R.id.profileFixEditText2);
+            etext3 = findViewById(R.id.profileFixEditText3);
+            etext1.setText(member_name);
+            etext2.setText(sex);
+            etext3.setText(birthday);
+        }
+        c.close();
+        db.close();
     }
 }

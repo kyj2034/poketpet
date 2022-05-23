@@ -2,9 +2,12 @@ package com.example.pocketpetlayout;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,12 +16,15 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class ProfileFragment extends Fragment {
 
+    private static final String TAG = "ProfileFragment";
     Button ProfileFixBtn;
     Button CheckPetBtn;
+    TextView text1;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -39,6 +45,8 @@ public class ProfileFragment extends Fragment {
         ProfileFixBtn.setOnClickListener(this::onClick);
         CheckPetBtn = view.findViewById(R.id.profileButton2);
         CheckPetBtn.setOnClickListener(this::onClick);
+
+        DBInfo(view);
 
         /*
          * 그리드뷰에 이미지 띄우기
@@ -73,5 +81,21 @@ public class ProfileFragment extends Fragment {
                 startActivity(intent2);
                 break;
         }
+    }
+
+    public void DBInfo(View view) {
+        MyDbHelper dbHelper = new MyDbHelper(getActivity().getApplicationContext());
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+        Cursor c = db.rawQuery("SELECT * FROM " + Member.TABLE_NAME, null);
+
+        if (c.moveToFirst()) {
+            String member_name = c.getString(2);
+            Log.i(TAG, "name :" + member_name);
+            text1 = (TextView) view.findViewById(R.id.profileText7);
+            text1.setText(member_name);
+        }
+        c.close();
+        db.close();
     }
 }
