@@ -12,7 +12,10 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 public class PetProfile extends AppCompatActivity {
 
@@ -20,13 +23,13 @@ public class PetProfile extends AppCompatActivity {
     TextView text1;
     TextView text2;
     TextView text3;
+    ImageView imageView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pet_profile);
 
         DBInfo();
-
         // 반려동물 프로필 변경 페이지 이동 버튼 이벤트
         Button button = findViewById(R.id.PetProfileButton1);
         button.setOnClickListener(new View.OnClickListener() {
@@ -53,6 +56,10 @@ public class PetProfile extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowTitleEnabled(false);
+
+        imageView = findViewById(R.id.PetProfileImageView1);
+        String imagePath = getIntent().getStringExtra("path");
+        Glide.with(this).load(imagePath).into(imageView);
     }
 
     @Override

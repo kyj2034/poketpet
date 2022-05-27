@@ -16,8 +16,11 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
 
 public class ProfileFragment extends Fragment {
 
@@ -25,7 +28,8 @@ public class ProfileFragment extends Fragment {
     Button ProfileFixBtn;
     Button CheckPetBtn;
     TextView text1;
-
+    ImageView imageView;
+    Intent intent;
     public ProfileFragment() {
         // Required empty public constructor
     }
@@ -47,6 +51,10 @@ public class ProfileFragment extends Fragment {
         CheckPetBtn.setOnClickListener(this::onClick);
 
         DBInfo(view);
+
+        imageView = view.findViewById(R.id.profileImageView1);
+        String imagePath = getActivity().getIntent().getStringExtra("path");
+        Glide.with(this).load(imagePath).into(imageView);
 
         /*
          * 그리드뷰에 이미지 띄우기

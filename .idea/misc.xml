@@ -51,10 +51,12 @@
         <entry key="..\:/AndroidStudioProjects/PocketPetLayout/PocketPetLayout/app/src/main/res/menu/toolbar_freeboardmenu.xml" value="0.1" />
         <entry key="..\:/AndroidStudioProjects/PocketPetLayout/PocketPetLayout/app/src/main/res/menu/toolbar_menu.xml" value="0.1" />
         <entry key="..\:/AppPrograming/poketpet-master/app/src/main/res/drawable-v24/ic_calendar.xml" value="0.1" />
+        <entry key="..\:/AppPrograming/poketpet-master/app/src/main/res/layout/activity_feed_item.xml" value="0.3509963768115942" />
         <entry key="..\:/AppPrograming/poketpet-master/app/src/main/res/layout/activity_pet_profile.xml" value="0.22447916666666667" />
         <entry key="..\:/AppPrograming/poketpet-master/app/src/main/res/layout/activity_pet_profile_check.xml" value="0.1875" />
         <entry key="..\:/AppPrograming/poketpet-master/app/src/main/res/layout/activity_pet_profile_fix.xml" value="0.25" />
         <entry key="..\:/AppPrograming/poketpet-master/app/src/main/res/layout/activity_profile_fix.xml" value="0.1890625" />
+        <entry key="..\:/AppPrograming/poketpet-master/app/src/main/res/layout/activity_profile_fix_ex.xml" value="0.18009118541033434" />
         <entry key="..\:/AppPrograming/poketpet-master/app/src/main/res/layout/fragment_feed.xml" value="0.1875" />
         <entry key="..\:/AppPrograming/poketpet-master/app/src/main/res/layout/fragment_profile.xml" value="0.25" />
         <entry key="..\:/AppPrograming/poketpet-master/app/src/main/res/menu/footer_navigation_menu.xml" value="0.2203125" />
@@ -63,6 +65,7 @@
         <entry key="..\:/AppPrograming/poketpet-master/app/src/main/res/menu/toolbar_freeboardmenu.xml" value="0.2203125" />
         <entry key="..\:/AppPrograming/poketpet-master/app/src/main/res/menu/toolbar_menu.xml" value="0.2203125" />
         <entry key="..\:/AppPrograming/poketpet-master/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.193" />
+        <entry key="..\:/AppPrograming/poketpet-master/app/src/main/res/xml/exrernal.xml" value="0.13632246376811594" />
       </map>
     </option>
   </component>
