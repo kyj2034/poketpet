@@ -59,7 +59,9 @@ public class PetProfile extends AppCompatActivity {
 
         imageView = findViewById(R.id.PetProfileImageView1);
         String imagePath = getIntent().getStringExtra("path");
-        Glide.with(this).load(imagePath).into(imageView);
+        if (imagePath != null) { // 이미지 경로가 있을 경우
+            Glide.with(this).load(imagePath).into(imageView);
+        }
     }
 
     @Override

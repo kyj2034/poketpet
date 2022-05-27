@@ -49,7 +49,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="277dp" />
+        app:layout_constraintGuide_begin="245dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline5"
@@ -67,15 +67,6 @@
         app:layout_constraintRight_toRightOf="@id/guideline1"
         app:layout_constraintTop_toTopOf="@id/guideline3" />
 
-    <CheckBox
-        android:id="@+id/PetCheckBox2"
-        android:layout_width="60dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="12dp"
-        android:text=""
-        app:layout_constraintBottom_toBottomOf="@id/guideline4"
-        app:layout_constraintRight_toRightOf="@id/guideline1" />
-
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/PetImageView"
         android:layout_width="75dp"
@@ -87,20 +78,6 @@
         app:civ_border_width="1dp"
         tools:ignore="MissingConstraints"
         app:layout_constraintTop_toTopOf="@id/guideline3"
-        app:layout_constraintLeft_toLeftOf="@id/guideline1"
-        />
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/PetImageView2"
-        android:layout_width="75dp"
-        android:layout_height="65dp"
-        android:layout_gravity="center"
-        android:src="@drawable/profile13"
-        app:civ_border_color="#000000"
-        app:civ_border_overlay="true"
-        app:civ_border_width="1dp"
-        tools:ignore="MissingConstraints"
-        app:layout_constraintBottom_toBottomOf="@id/guideline4"
         app:layout_constraintLeft_toLeftOf="@id/guideline1"
         />
 
@@ -116,29 +93,14 @@
         app:layout_constraintTop_toTopOf="@id/guideline3"
         />
 
-    <TextView
-        android:id="@+id/PetTextView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:text="점순이"
-        tools:layout_editor_absoluteX="227dp"
-        tools:layout_editor_absoluteY="210dp"
-        app:layout_constraintLeft_toLeftOf="@id/guideline2"
-        app:layout_constraintBottom_toBottomOf="@id/guideline4"
-        />
-
     <Button
         android:id="@+id/PetPlusButton"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:backgroundTint="#9777D8"
         android:text="추가"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499" />
+        app:layout_constraintTop_toBottomOf="@id/guideline4" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

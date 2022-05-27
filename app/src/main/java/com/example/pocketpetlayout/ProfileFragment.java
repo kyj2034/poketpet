@@ -30,6 +30,7 @@ public class ProfileFragment extends Fragment {
     TextView text1;
     ImageView imageView;
     Intent intent;
+    String imagePath;
     public ProfileFragment() {
         // Required empty public constructor
     }
@@ -51,13 +52,13 @@ public class ProfileFragment extends Fragment {
         CheckPetBtn.setOnClickListener(this::onClick);
 
         DBInfo(view);
-
         imageView = view.findViewById(R.id.profileImageView1);
-        String imagePath = getActivity().getIntent().getStringExtra("path");
-        Glide.with(this).load(imagePath).into(imageView);
+        imagePath = getActivity().getIntent().getStringExtra("path");
+        if (imagePath != null) { // 이미지 경로가 있을 경우
+            Glide.with(this).load(imagePath).into(imageView);
+        }
 
-        /*
-         * 그리드뷰에 이미지 띄우기
+         /* 그리드뷰에 이미지 띄우기
          */
         //화면크기 얻기
         Display display = ((WindowManager)getActivity().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();

@@ -78,6 +78,9 @@ public class PetProfileFix extends AppCompatActivity {
                     intent = new Intent(getApplicationContext(), PetProfile.class);
                     intent.putExtra("path", imagePath);
                     startActivity(intent);
+                }else{
+                    Intent intent = new Intent(getApplicationContext(), PetProfile.class);
+                    startActivity(intent);
                 }
                 return true;
         }

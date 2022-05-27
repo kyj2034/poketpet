@@ -77,6 +77,9 @@ public class ProfileFix extends AppCompatActivity {
                     intent = new Intent(getApplicationContext(), HomeActivity.class);
                     intent.putExtra("path", imagePath);
                     startActivity(intent);
+                }else{
+                    Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                    startActivity(intent);
                 }
                 return true;
         }
