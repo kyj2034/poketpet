@@ -29,7 +29,7 @@ public class JoinActivity2 extends AppCompatActivity {
 
         Button overlap = (Button) findViewById(R.id.overlap);
         Button okbtn = (Button) findViewById(R.id.okbtn);
-        Button nextbtn = (Button) findViewById(R.id.nextbtn3);
+        Button nextbtn = (Button) findViewById(R.id.nextbtn);
         EditText email1 = (EditText) findViewById(R.id.email1);
         EditText password2 = (EditText) findViewById(R.id.password2);
         EditText password3 = (EditText) findViewById(R.id.password3);
@@ -60,7 +60,7 @@ public class JoinActivity2 extends AppCompatActivity {
         okbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!(password2.equals(password3))){
+                if (!(passwordSt2.equals(passwordSt3))){
                     Toast toast = Toast.makeText(JoinActivity2.this, "비밀번호 재입력이 틀렸습니다", Toast.LENGTH_SHORT);
                 }
             }
@@ -70,7 +70,7 @@ public class JoinActivity2 extends AppCompatActivity {
             public void onClick(View v) {
                 SQLiteDatabase db = myDbHelper.getReadableDatabase();
                 Cursor c =db.rawQuery("SELECT * FROM " + Member.TABLE_NAME, null);
-                if(c.moveToFirst()){
+                if(c.moveToFirst())
                     do{
                         String email = c.getString(0);
                         Log.i(TAG,"email: " + email);
@@ -79,10 +79,13 @@ public class JoinActivity2 extends AppCompatActivity {
                             Log.i(TAG, "emailSt: " + emailSt);
                             Toast toast = Toast.makeText(JoinActivity2.this, "이미 존재하는 이메일입니다.", Toast.LENGTH_SHORT);
                             toast.show();
+                        }else if (!(email.equals(emailSt))) {
+                            Toast toast = Toast.makeText(JoinActivity2.this, "사용 가능한 이메일입니다.", Toast.LENGTH_SHORT);
+                            toast.show();
                         }
                     }while(c.moveToNext());
                 }
-            }
+
         });
     }
 }

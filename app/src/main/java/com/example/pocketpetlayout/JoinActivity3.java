@@ -150,6 +150,10 @@ public class JoinActivity3 extends AppCompatActivity {
                             Toast toast = Toast.makeText(JoinActivity3.this, "이미 존재하는 닉네임입니다.", Toast.LENGTH_SHORT);
                             toast.show();
                         }
+                        else if (!nickdb.equals(nickSt)){
+                            Toast toast = Toast.makeText(JoinActivity3.this, "사용할 수 있는 닉네임입니다.", Toast.LENGTH_SHORT);
+                            toast.show();
+                        }
                     }while(c.moveToNext());
                 }
             }
