@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PetProfileCheck">
+    tools:context=".PetProfileCheckActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -67,6 +67,7 @@
         app:layout_constraintRight_toRightOf="@id/guideline1"
         app:layout_constraintTop_toTopOf="@id/guideline3" />
 
+
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/PetImageView"
         android:layout_width="75dp"
@@ -86,12 +87,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="점박이"
+        android:text="율무"
         tools:layout_editor_absoluteX="224dp"
         tools:layout_editor_absoluteY="113dp"
         app:layout_constraintLeft_toLeftOf="@id/guideline2"
         app:layout_constraintTop_toTopOf="@id/guideline3"
         />
+
 
     <Button
         android:id="@+id/PetPlusButton"

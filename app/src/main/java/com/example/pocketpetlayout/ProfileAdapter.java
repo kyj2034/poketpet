@@ -23,22 +23,6 @@ public class ProfileAdapter extends BaseAdapter {
             R.drawable.profile6,
             R.drawable.profile7,
             R.drawable.profile8,
-            R.drawable.profile10,
-            R.drawable.profile2, /*반복*/
-            R.drawable.profile3,
-            R.drawable.profile4,
-            R.drawable.profile5,
-            R.drawable.profile6,
-            R.drawable.profile7,
-            R.drawable.profile8,
-            R.drawable.profile10,
-            R.drawable.profile2, /*반복*/
-            R.drawable.profile3,
-            R.drawable.profile4,
-            R.drawable.profile5,
-            R.drawable.profile6,
-            R.drawable.profile7,
-            R.drawable.profile8,
             R.drawable.profile10
     };
 

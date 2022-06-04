@@ -13,24 +13,25 @@ import androidx.core.content.FileProvider;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -41,16 +42,20 @@ import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class PetProfileFix extends AppCompatActivity {
-    String nickname;
-    String sex;
-    String birthday;
+public class ProfileFixActivity extends AppCompatActivity {
+
     EditText etext1;
     EditText etext2;
     EditText etext3;
+
+    Bitmap bitmap;
     ImageView imageView;
     private static final int REQUEST_CODE = 0;
-    private static final String TAG = "PetProfileFix";
+    private static final String TAG = "ProfileFix";
+
+    //하단 버튼 없애기
+    private View decorView;
+    private int	uiOption;
 
     @SuppressLint("SimpleDateFormat")
     SimpleDateFormat imageDate = new SimpleDateFormat("yyyyMMdd_HHmmss");
@@ -69,17 +74,21 @@ public class PetProfileFix extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        etext1 = findViewById(R.id.profileFixEditText1);
         switch (item.getItemId()){
-            case android.R.id.home://toolbar의 back키 눌렀을 때 동작
+            case android.R.id.home: //toolbar의 back키 눌렀을 때 동작
                 finish();
                 return true;
-            case R.id.toolbar_check: // 체크 버튼을 통해 반려동물 프로필로 이동
+            case R.id.toolbar_check: // 체크 버튼을 통해 프로필로 이동
                 if (imagePath.length() > 0) { // 이미지 경로가 있을 경우
-                    intent = new Intent(getApplicationContext(), PetProfile.class);
+                    intent = new Intent(getApplicationContext(), HomeActivity.class);
                     intent.putExtra("path", imagePath);
+                    intent.putExtra("name", etext1.getText().toString());
                     startActivity(intent);
                 }else{
-                    Intent intent = new Intent(getApplicationContext(), PetProfile.class);
+                    // edittext값 넘기기
+                    intent = new Intent(getApplicationContext(), HomeActivity.class);
+                    intent.putExtra("name", etext1.getText().toString());
                     startActivity(intent);
                 }
                 return true;
@@ -90,31 +99,39 @@ public class PetProfileFix extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pet_profile_fix);
+        setContentView(R.layout.activity_profile_fix);
+
+        //하단 버튼을 없애는 기능
+        decorView = getWindow().getDecorView();
+        uiOption = getWindow().getDecorView().getSystemUiVisibility();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH)
+            uiOption |= View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
+            uiOption |= View.SYSTEM_UI_FLAG_FULLSCREEN;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
+            uiOption |= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+        decorView.setSystemUiVisibility(uiOption);
+        //---------------------
 
         DBInfo();
-
         // 상단 툴바
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowTitleEnabled(false);
-
         //권한 체크크
         boolean hasCamPerm = checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED;
         boolean hasWritePerm = checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
         if (!hasCamPerm || !hasWritePerm)  // 권한 없을 시  권한설정 요청
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-
         // 이미지 클릭 하여 메뉴 보이기
-        imageView = findViewById(R.id.img_user1);
+        imageView = findViewById(R.id.img_user);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 PopupMenu pop = new PopupMenu(getApplicationContext(), view);
                 getMenuInflater().inflate(R.menu.profile_menu, pop.getMenu());
-
                 pop.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
@@ -153,7 +170,6 @@ public class PetProfileFix extends AppCompatActivity {
             }
         });
     }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -170,7 +186,6 @@ public class PetProfileFix extends AppCompatActivity {
                     cursor.close();
                 }
             }
-
             if (imagePath.length() > 0) {
                 Glide.with(this)
                         .load(imagePath)
@@ -178,7 +193,6 @@ public class PetProfileFix extends AppCompatActivity {
             }
         }
     }
-
     @SuppressLint("SimpleDateFormat")
     File createImageFile() throws IOException {
         //이미지 파일 생성
@@ -189,23 +203,19 @@ public class PetProfileFix extends AppCompatActivity {
         imagePath = file.getAbsolutePath(); // 파일 절대경로 저장하기
         return file;
     }
-
     public void DBInfo() {
         MyDbHelper dbHelper = new MyDbHelper(getApplicationContext());
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-
-        Cursor c = db.rawQuery("SELECT * FROM " + Pet.TABLE_NAME, null);
-
+        Cursor c = db.rawQuery("SELECT * FROM " + Member.TABLE_NAME, null);
         if (c.moveToFirst()) {
-
-            String pet_name = c.getString(0);
-            String birthday = c.getString(1);
-            String sex = c.getString(2);
-            Log.i(TAG, "name :" + pet_name + "birthday :" + birthday + "sex :" + sex);
-            etext1 = findViewById(R.id.PetprofileFixEditText1);
-            etext2 = findViewById(R.id.PetprofileFixEditText2);
-            etext3 = findViewById(R.id.PetprofileFixEditText3);
-            etext1.setText(pet_name);
+            String member_name = c.getString(2);
+            String sex = c.getString(3);
+            String birthday = c.getString(4);
+            Log.i(TAG, "name :" + member_name);
+            etext1 = findViewById(R.id.profileFixEditText1);
+            etext2 = findViewById(R.id.profileFixEditText2);
+            etext3 = findViewById(R.id.profileFixEditText3);
+            etext1.setText(member_name);
             etext2.setText(sex);
             etext3.setText(birthday);
         }

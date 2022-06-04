@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -17,25 +18,60 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
-public class PetProfile extends AppCompatActivity {
+public class PetProfileActivity extends AppCompatActivity {
 
     private static final String TAG = "PetProfile" ;
     TextView text1;
     TextView text2;
     TextView text3;
     ImageView imageView;
+
+    //하단 버튼 없애기
+    private View decorView;
+    private int	uiOption;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pet_profile);
 
-        DBInfo();
+
+
+        //하단 버튼을 없애는 기능
+        decorView = getWindow().getDecorView();
+        uiOption = getWindow().getDecorView().getSystemUiVisibility();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH)
+            uiOption |= View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
+            uiOption |= View.SYSTEM_UI_FLAG_FULLSCREEN;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
+            uiOption |= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+        decorView.setSystemUiVisibility(uiOption);
+        //---------------------
+
+        DBInfo(); // db에서 pet 데이터 가져오기
+
+        // 반려동물 편집에서 데이터 가져오기
+        Intent intent = getIntent();
+        String name = intent.getStringExtra("pname");
+        String gender = intent.getStringExtra("pgender");
+        String birthday = intent.getStringExtra("pbirthday");
+        text1 = findViewById(R.id.PetProfileText2);
+        text2 = findViewById(R.id.PetProfileText4);
+        text3 = findViewById(R.id.petProfileText6);
+        if(name != null) {
+            text1.setText(name);
+            text2.setText(gender);
+            text3.setText(birthday);
+        }
+
         // 반려동물 프로필 변경 페이지 이동 버튼 이벤트
         Button button = findViewById(R.id.PetProfileButton1);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
-                Intent intent = new Intent(getApplicationContext(), PetProfileFix.class);
+                Intent intent = new Intent(getApplicationContext(), PetProfileFixActivity.class);
                 startActivity(intent);
             }
         });
@@ -45,7 +81,7 @@ public class PetProfile extends AppCompatActivity {
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
-                Intent intent = new Intent(getApplicationContext(), PetProfileCheck.class);
+                Intent intent = new Intent(getApplicationContext(), PetProfileCheckActivity.class);
                 startActivity(intent);
             }
         });
@@ -62,6 +98,7 @@ public class PetProfile extends AppCompatActivity {
         if (imagePath != null) { // 이미지 경로가 있을 경우
             Glide.with(this).load(imagePath).into(imageView);
         }
+
     }
 
     @Override
@@ -96,4 +133,5 @@ public class PetProfile extends AppCompatActivity {
         c.close();
         db.close();
     }
+
 }

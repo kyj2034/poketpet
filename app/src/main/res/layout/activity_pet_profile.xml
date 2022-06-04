@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PetProfile">
+    tools:context=".PetProfileActivity">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -62,14 +62,15 @@
         android:layout_width="90dp"
         android:layout_height="70dp"
         android:layout_gravity="center"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="25dp"
         android:src="@drawable/profile11"
         app:civ_border_color="#000000"
         app:civ_border_overlay="true"
         app:civ_border_width="1dp"
+        tools:ignore="MissingConstraints"
         app:layout_constraintStart_toStartOf="@id/guideline1"
         app:layout_constraintTop_toTopOf="@id/guideline3"
-        tools:ignore="MissingConstraints" />
+        />
 
     <TextView
         android:id="@+id/PetProfileText1"
@@ -95,7 +96,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="생일: "
+        android:text="성별: "
         app:layout_constraintStart_toStartOf="@id/guideline2"
         app:layout_constraintTop_toBottomOf="@+id/PetProfileText1" />
 
@@ -105,15 +106,16 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
-        android:text="2022.02.05"
+        android:text="남자"
         app:layout_constraintLeft_toRightOf="@+id/PetProfileText3"
         app:layout_constraintTop_toBottomOf="@+id/PetProfileText2" />
+
     <TextView
         android:id="@+id/petProfileText5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
-        android:text="성별: "
+        android:text="생일: "
         app:layout_constraintStart_toStartOf="@id/guideline2"
         app:layout_constraintTop_toBottomOf="@+id/PetProfileText1" />
 
@@ -123,7 +125,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
-        android:text="남자"
+        android:text="2022.05.22"
         app:layout_constraintLeft_toRightOf="@+id/PetProfileText3"
         app:layout_constraintTop_toBottomOf="@+id/PetProfileText4" />
 

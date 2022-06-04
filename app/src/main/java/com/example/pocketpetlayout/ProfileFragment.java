@@ -2,11 +2,11 @@ package com.example.pocketpetlayout;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -25,12 +25,18 @@ import com.bumptech.glide.Glide;
 public class ProfileFragment extends Fragment {
 
     private static final String TAG = "ProfileFragment";
+
     Button ProfileFixBtn;
     Button CheckPetBtn;
     TextView text1;
     ImageView imageView;
     Intent intent;
     String imagePath;
+
+    //하단 버튼 없애기
+    private View decorView;
+    private int	uiOption;
+
     public ProfileFragment() {
         // Required empty public constructor
     }
@@ -45,20 +51,45 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
+
+        //하단 버튼을 없애는 기능
+        decorView = getActivity().getWindow().getDecorView();
+        uiOption = getActivity().getWindow().getDecorView().getSystemUiVisibility();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH)
+            uiOption |= View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
+            uiOption |= View.SYSTEM_UI_FLAG_FULLSCREEN;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
+            uiOption |= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+        decorView.setSystemUiVisibility(uiOption);
+        //---------------------
+
+        //DB에서 member 정보 가져오기
+        DBInfo(view);
+
+        // 프로필 편집에서 데이터 가져오기
+        Intent intent = getActivity().getIntent();
+        String name = intent.getStringExtra("name");
+        TextView textView = view.findViewById(R.id.profileText7);
+        if(name != null){
+            textView.setText(name);
+        }
+
         // 프로필 편집 , 반려동물 편집 버튼
         ProfileFixBtn = view.findViewById(R.id.profileButton1);
         ProfileFixBtn.setOnClickListener(this::onClick);
         CheckPetBtn = view.findViewById(R.id.profileButton2);
         CheckPetBtn.setOnClickListener(this::onClick);
 
-        DBInfo(view);
         imageView = view.findViewById(R.id.profileImageView1);
         imagePath = getActivity().getIntent().getStringExtra("path");
         if (imagePath != null) { // 이미지 경로가 있을 경우
             Glide.with(this).load(imagePath).into(imageView);
         }
 
-         /* 그리드뷰에 이미지 띄우기
+
+        /*
+         * 그리드뷰에 이미지 띄우기
          */
         //화면크기 얻기
         Display display = ((WindowManager)getActivity().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
@@ -82,11 +113,11 @@ public class ProfileFragment extends Fragment {
     public void onClick(View view){
         switch (view.getId()){
             case R.id.profileButton1:
-                Intent intent = new Intent(getActivity().getApplicationContext(), ProfileFix.class);
+                Intent intent = new Intent(getActivity().getApplicationContext(), ProfileFixActivity.class);
                 startActivity(intent);
                 break;
             case R.id.profileButton2:
-                Intent intent2 = new Intent(getActivity().getApplicationContext(), PetProfileCheck.class);
+                Intent intent2 = new Intent(getActivity().getApplicationContext(), PetProfileCheckActivity.class);
                 startActivity(intent2);
                 break;
         }
